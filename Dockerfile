@@ -1,5 +1,7 @@
 FROM alpine
-RUN mkdir -p /www && echo "Smart Hub Online" > /www/index.html
 EXPOSE 80
-# Print the banner, then serve it on port 80 so the container stays up
-CMD echo "Smart Hub Online" && httpd -f -p 80 -h /www
+# Print the banner, then answer HTTP on port 80 with it (no packages needed)
+CMD echo "Smart Hub Online" && \
+    while true; do \
+      printf 'HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\n\r\nSmart Hub Online\n' | nc -l -p 80 || sleep 1; \
+    done
