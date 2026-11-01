@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iot-core
+  labels:
+    service: iot-core
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      service: iot-core
+  template:
+    metadata:
+      labels:
+        service: iot-core
+    spec:
+      containers:
+        - name: iot-core
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
